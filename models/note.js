@@ -11,9 +11,9 @@ mongoose.connect(url)
     })
 
 const noteSchema = new mongoose.Schema({
-    constent : String,
+    content : String,
     date : Date,
-    import: Boolean,
+    important: Boolean,
 })
 
 noteSchema.set('toJSON', {
