@@ -12,6 +12,14 @@ PUT http://localhost:3001/api/notes/6287f22c9020e922f23ba538
 Content-Type: application/json
 
 {
-    "content": "test",
+    "content": "test123123",
     "important": true
+}
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content": "lol",
+    "importent": true
 }
