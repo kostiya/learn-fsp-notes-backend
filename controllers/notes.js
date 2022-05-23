@@ -36,7 +36,7 @@ noteRouter.put('/:id', (request, response, next) => {
         .catch(error => next(error))
 })
 
-noteRouter.post('/', (request, response, next) => {
+noteRouter.post('/', async (request, response, next) => {
     const body = request.body
 
     const note = new Note({
@@ -45,10 +45,12 @@ noteRouter.post('/', (request, response, next) => {
         date : new Date()
     })
 
-    note.save().then(savedNote => {
+    try {
+        const savedNote = await note.save()
         response.status(201).json(savedNote)
-    })
-        .catch(error => next(error))
+    } catch(exception) {
+        next(exception)
+    }
 
 })
 
