@@ -6,25 +6,19 @@ noteRouter.get('/', async (_request, response) => {
     response.json(notes)
 })
 
+// eslint-disable-next-line no-unused-vars
 noteRouter.get('/:id', async (request, response, next) => {
-    try{
-        const note = await Note.findById(request.params.id)
-        if(note) {
-            response.json(note)
-        } else {
-            response.status(404).end()
-        }
-    } catch(exception) {
-        next(exception)
+    const note = await Note.findById(request.params.id)
+    if(note) {
+        response.json(note)
+    } else {
+        response.status(404).end()
     }
 })
+// eslint-disable-next-line no-unused-vars
 noteRouter.delete('/:id', async (request, response, next) => {
-    try {
-        await Note.findByIdAndRemove(request.params.id)
-        response.status(204).end()
-    } catch(exception) {
-        next(exception)
-    }
+    await Note.findByIdAndRemove(request.params.id)
+    response.status(204).end()
 })
 
 noteRouter.put('/:id', (request, response, next) => {
@@ -38,6 +32,7 @@ noteRouter.put('/:id', (request, response, next) => {
         .catch(error => next(error))
 })
 
+// eslint-disable-next-line no-unused-vars
 noteRouter.post('/', async (request, response, next) => {
     const body = request.body
 
@@ -47,13 +42,8 @@ noteRouter.post('/', async (request, response, next) => {
         date : new Date()
     })
 
-    try {
-        const savedNote = await note.save()
-        response.status(201).json(savedNote)
-    } catch(exception) {
-        next(exception)
-    }
-
+    const savedNote = await note.save()
+    response.status(201).json(savedNote)
 })
 
 module.exports = noteRouter
