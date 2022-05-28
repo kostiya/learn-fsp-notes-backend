@@ -16,6 +16,7 @@
   "author": "Kosta Medinsky",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^27.5.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
