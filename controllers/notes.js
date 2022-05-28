@@ -21,15 +21,22 @@ noteRouter.delete('/:id', async (request, response, next) => {
     response.status(204).end()
 })
 
-noteRouter.put('/:id', (request, response, next) => {
+// eslint-disable-next-line no-unused-vars
+noteRouter.put('/:id', async (request, response, next) => {
     const { content, important } = request.body
 
-    Note.findByIdAndUpdate(request.params.id, { content, important },
-        { new: true, runValidators: true, context: 'query' })
-        .then(updatedNote => {
-            response.json(updatedNote)
+    const updatedNote = await Note.findByIdAndUpdate(request.params.id,
+        {
+            content,
+            important
+        },
+        {
+            new: true,
+            runValidators: true,
+            context: 'query'
         })
-        .catch(error => next(error))
+
+    response.json(updatedNote)
 })
 
 // eslint-disable-next-line no-unused-vars
