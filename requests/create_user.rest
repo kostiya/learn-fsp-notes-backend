@@ -10,9 +10,17 @@ Content-Type: application/json
 ###
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtvc3RhY29zIiwiaWQiOiI2MjkyOGZiYTI4ZTBkMzYxNTQ1YTg5ZjYiLCJpYXQiOjE2NTQwMzA1NTN9.k87YKpRsJlAf_L9zAx2gNyycqjCWeVMKRqkZX3JCgdo
 
 {
-    "content": "User id of the note creator is at the start sent along the request",
-    "importent": true,
-    "userId": "62928fba28e0d361545a89f6"
+    "content": "Userrr id of the note creator is at the start sent along the request",
+    "importent": true
+}
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "kostacos",
+    "password": "secret"
 }
