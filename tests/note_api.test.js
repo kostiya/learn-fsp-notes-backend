@@ -3,13 +3,14 @@ const mongoose = require('mongoose')
 const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
-
 const Note = require('../models/note')
+let token
 
 describe('when there is initially some notes saved', () => {
     beforeEach(async () => {
         await Note.deleteMany({})
         await Note.insertMany(helper.initialNotes)
+        token = await helper.userLogin()
     })
 
     test('notes are returned as json', async () => {
@@ -54,8 +55,6 @@ describe('when there is initially some notes saved', () => {
         test('fails with statuscode 404 if note does not exist', async () => {
             const validNonexistingId = await helper.nonExistingId()
 
-            console.log(validNonexistingId)
-
             await api
                 .get(`/api/notes/${validNonexistingId}`)
                 .expect(404)
@@ -79,6 +78,7 @@ describe('when there is initially some notes saved', () => {
 
             await api
                 .post('/api/notes')
+                .set('Authorization', 'bearer ' + token)
                 .send(newNote)
                 .expect(201)
                 .expect('Content-Type', /application\/json/)
@@ -100,6 +100,7 @@ describe('when there is initially some notes saved', () => {
 
             await api
                 .post('/api/notes')
+                .set('Authorization', 'bearer ' + token)
                 .send(newNote)
                 .expect(400)
 

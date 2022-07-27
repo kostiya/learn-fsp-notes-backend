@@ -1,5 +1,7 @@
 const Note = require('../models/note')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 const initialNotes = [
     {
@@ -32,9 +34,20 @@ const usersInDb = async () => {
     return users.map(u => u.toJSON())
 }
 
+const userLogin = async () => {
+    await User.deleteMany({})
+
+    const passwordHash = await bcrypt.hash('sekret', 10)
+    const user = new User({ username: 'root', name: 'rooty', passwordHash })
+
+    const returnedUser = await user.save()
+    return jwt.sign({ username: 'root', id: returnedUser._id }, process.env.SECRET)
+}
+
 module.exports = {
     initialNotes,
     nonExistingId,
     notesInDb,
-    usersInDb
+    usersInDb,
+    userLogin
 }
